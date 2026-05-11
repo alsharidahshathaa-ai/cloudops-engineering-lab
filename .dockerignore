@@ -1,0 +1,13 @@
+_pycache_/
+*.pyc
+.venv/
+.env
+.git
+.gitignore
+README.md
+terraform/
+kubernetes/
+docs/
+monitoring/
+scripts/
+.github/
