@@ -1,0 +1,33 @@
+name: CloudOps CI
+
+on:
+  push:
+    branches: [ "main" ]
+
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  backend-ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install backend dependencies
+        run: |
+          pip install -r docker/app/backend/requirements.txt
+
+      - name: Check Python syntax
+        run: |
+          python -m py_compile docker/app/backend/app.py
+
+      - name: Build Docker image
+        run: |
+          docker build -t cloudops-backend -f docker/Dockerfile .
